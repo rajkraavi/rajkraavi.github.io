@@ -1,0 +1,1480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Raj Raavi | Principal AI Architect</title>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cyan: #00d9ff;
+  --purple: #7c3aed;
+  --green: #00ff88;
+  --pink: #ff006e;
+  --orange: #ff6b35;
+  --bg: #050510;
+  --bg2: #080818;
+  --glass: rgba(255,255,255,0.04);
+  --border: rgba(0,217,255,0.15);
+  --text: #e2e8f0;
+  --muted: #64748b;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+}
+
+/* ââ SCROLLBAR âââââââââââââââââââââââââââââââ */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 2px; }
+
+/* ââ NAV ââââââââââââââââââââââââââââââââââââââ */
+nav {
+  position: fixed; top:0; left:0; right:0; z-index:100;
+  padding: 1rem 3rem;
+  display: flex; align-items:center; justify-content:space-between;
+  background: rgba(5,5,16,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family: 'Fira Code', monospace;
+  color: var(--cyan); font-size: 1.1rem; font-weight:600;
+  letter-spacing: 0.05em;
+}
+.nav-logo span { color: var(--purple); }
+.nav-links { display:flex; gap:2rem; list-style:none; }
+.nav-links a {
+  color: var(--muted); text-decoration:none;
+  font-size:0.85rem; font-weight:500; letter-spacing:0.05em;
+  transition: color 0.3s;
+  font-family: 'Fira Code', monospace;
+}
+.nav-links a:hover { color: var(--cyan); }
+
+/* ââ HERO âââââââââââââââââââââââââââââââââââââ */
+#hero {
+  position: relative; height:100vh;
+  display:flex; align-items:center; justify-content:center;
+  overflow: hidden;
+}
+#neuralCanvas {
+  position:absolute; inset:0; width:100%; height:100%;
+  opacity:0.6;
+}
+.hero-content {
+  position:relative; z-index:2;
+  text-align:center; padding:2rem;
+}
+.terminal-window {
+  background: rgba(8,8,24,0.92);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0;
+  width: min(680px, 90vw);
+  box-shadow: 0 0 60px rgba(0,217,255,0.12), 0 40px 80px rgba(0,0,0,0.6);
+  backdrop-filter: blur(20px);
+}
+.terminal-header {
+  background: rgba(255,255,255,0.04);
+  padding: 0.75rem 1.25rem;
+  border-radius: 12px 12px 0 0;
+  display:flex; align-items:center; gap:0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+.dot { width:12px; height:12px; border-radius:50%; }
+.dot-r { background:#ff5f56; }
+.dot-y { background:#ffbd2e; }
+.dot-g { background:#27c93f; }
+.terminal-title {
+  margin-left:auto; font-family:'Fira Code',monospace;
+  font-size:0.75rem; color:var(--muted);
+}
+.terminal-body {
+  padding:1.5rem 1.75rem;
+  font-family:'Fira Code',monospace;
+  font-size:0.9rem; line-height:1.9;
+  text-align:left;
+}
+.t-comment { color:#4a5568; }
+.t-kw { color:#c678dd; }
+.t-cls { color:#e5c07b; }
+.t-fn { color:#61afef; }
+.t-str { color:#98c379; }
+.t-num { color:#d19a66; }
+.t-self { color:#e06c75; }
+.t-cyan { color:var(--cyan); }
+.t-op { color:#abb2bf; }
+.cursor {
+  display:inline-block; width:9px; height:1.1em;
+  background:var(--cyan); animation:blink 1s step-end infinite;
+  vertical-align:text-bottom; margin-left:1px;
+}
+@keyframes blink { 50%{opacity:0} }
+.hero-tagline {
+  margin-top:2rem;
+  font-size:0.85rem; color:var(--muted);
+  font-family:'Fira Code',monospace; letter-spacing:0.1em;
+}
+.hero-tagline span {
+  color:var(--cyan);
+  animation: pulse-text 2s ease-in-out infinite;
+}
+@keyframes pulse-text {
+  0%,100%{ opacity:1 } 50%{ opacity:0.5 }
+}
+.hero-badges {
+  display:flex; gap:0.75rem; justify-content:center;
+  flex-wrap:wrap; margin-top:1.5rem;
+}
+.hero-badge {
+  padding:0.35rem 0.85rem;
+  border-radius:50px;
+  font-size:0.75rem; font-weight:600; letter-spacing:0.05em;
+  border:1px solid;
+  animation: float 3s ease-in-out infinite;
+}
+.hero-badge:nth-child(2){ animation-delay:0.5s }
+.hero-badge:nth-child(3){ animation-delay:1s }
+.hero-badge:nth-child(4){ animation-delay:1.5s }
+.hero-badge:nth-child(5){ animation-delay:2s }
+.badge-cyan { color:var(--cyan); border-color:rgba(0,217,255,0.3); background:rgba(0,217,255,0.06); }
+.badge-purple { color:#a78bfa; border-color:rgba(124,58,237,0.3); background:rgba(124,58,237,0.06); }
+.badge-green { color:var(--green); border-color:rgba(0,255,136,0.3); background:rgba(0,255,136,0.06); }
+.badge-pink { color:#f472b6; border-color:rgba(244,114,182,0.3); background:rgba(244,114,182,0.06); }
+.badge-orange { color:var(--orange); border-color:rgba(255,107,53,0.3); background:rgba(255,107,53,0.06); }
+@keyframes float {
+  0%,100%{ transform:translateY(0) } 50%{ transform:translateY(-6px) }
+}
+.scroll-hint {
+  position:absolute; bottom:2rem; left:50%; transform:translateX(-50%);
+  display:flex; flex-direction:column; align-items:center; gap:0.5rem;
+  color:var(--muted); font-size:0.75rem; letter-spacing:0.1em;
+  font-family:'Fira Code',monospace;
+}
+.scroll-arrow {
+  width:2px; height:40px; background:linear-gradient(to bottom, var(--cyan), transparent);
+  animation:scroll-down 1.5s ease-in-out infinite;
+}
+@keyframes scroll-down { 0%{opacity:0;transform:scaleY(0);transform-origin:top} 50%{opacity:1;transform:scaleY(1)} 100%{opacity:0;transform:scaleY(1);transform-origin:bottom} }
+
+/* ââ SECTION COMMON âââââââââââââââââââââââââââ */
+section { padding:6rem 2rem; position:relative; }
+.section-inner { max-width:1100px; margin:0 auto; }
+.section-label {
+  font-family:'Fira Code',monospace;
+  color:var(--cyan); font-size:0.8rem; letter-spacing:0.2em;
+  text-transform:uppercase; margin-bottom:0.75rem;
+}
+.section-label::before { content:'// '; color:var(--muted); }
+.section-title {
+  font-size:clamp(2rem,4vw,3rem); font-weight:800;
+  line-height:1.1; margin-bottom:1rem;
+}
+.glow-text {
+  background: linear-gradient(135deg, #fff 0%, var(--cyan) 50%, var(--purple) 100%);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.section-sub { color:var(--muted); font-size:1.05rem; max-width:600px; line-height:1.7; }
+
+/* reveal animation */
+.reveal { opacity:0; transform:translateY(30px); transition:opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+.reveal-delay-1 { transition-delay:0.1s }
+.reveal-delay-2 { transition-delay:0.2s }
+.reveal-delay-3 { transition-delay:0.3s }
+.reveal-delay-4 { transition-delay:0.4s }
+
+/* ââ ABOUT (SKILLS AS CODE) âââââââââââââââââââ */
+#about { background:var(--bg); }
+.about-grid { display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:start; margin-top:3rem; }
+@media(max-width:768px){ .about-grid{ grid-template-columns:1fr; } }
+.code-block {
+  background:rgba(8,8,24,0.95);
+  border:1px solid var(--border);
+  border-radius:12px; overflow:hidden;
+  box-shadow:0 0 40px rgba(0,217,255,0.06);
+}
+.code-header {
+  background:rgba(255,255,255,0.03);
+  padding:0.65rem 1.25rem;
+  display:flex; align-items:center; gap:0.5rem;
+  border-bottom:1px solid var(--border);
+}
+.code-header-dot { width:10px; height:10px; border-radius:50%; }
+.code-filename {
+  font-family:'Fira Code',monospace; font-size:0.75rem; color:var(--muted);
+  margin-left:0.5rem;
+}
+.code-body {
+  padding:1.5rem;
+  font-family:'Fira Code',monospace; font-size:0.82rem; line-height:2;
+  counter-reset:line;
+}
+.code-line { display:flex; gap:1rem; }
+.code-line::before {
+  counter-increment:line;
+  content:counter(line);
+  color:#2d3748; min-width:20px; text-align:right;
+  user-select:none;
+}
+.code-line:hover { background:rgba(255,255,255,0.02); border-radius:4px; }
+
+/* stats */
+.stats-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.25rem; }
+.stat-card {
+  background:var(--glass);
+  border:1px solid var(--border);
+  border-radius:12px; padding:1.5rem;
+  position:relative; overflow:hidden;
+  transition:all 0.3s;
+}
+.stat-card::before {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(135deg,transparent,rgba(0,217,255,0.04));
+  opacity:0; transition:opacity 0.3s;
+}
+.stat-card:hover::before{ opacity:1; }
+.stat-card:hover { border-color:rgba(0,217,255,0.3); transform:translateY(-2px); }
+.stat-number {
+  font-size:2.5rem; font-weight:800;
+  background:linear-gradient(135deg,var(--cyan),var(--purple));
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.stat-label { color:var(--muted); font-size:0.8rem; letter-spacing:0.05em; margin-top:0.25rem; }
+
+/* ââ SKILLS GALAXY ââââââââââââââââââââââââââââ */
+#skills { background:linear-gradient(180deg,var(--bg) 0%,#08082a 50%,var(--bg) 100%); }
+#skillCanvas {
+  width:100%; height:500px; cursor:grab;
+  border-radius:16px;
+  border:1px solid var(--border);
+  margin-top:2.5rem;
+  background:rgba(8,8,40,0.6);
+}
+#skillCanvas:active{ cursor:grabbing; }
+.skill-hint {
+  text-align:center; color:var(--muted); font-size:0.78rem;
+  font-family:'Fira Code',monospace; margin-top:0.75rem;
+  letter-spacing:0.1em;
+}
+/* tooltip */
+#skillTooltip {
+  position:fixed; z-index:200;
+  background:rgba(8,8,24,0.97);
+  border:1px solid var(--cyan);
+  border-radius:8px; padding:0.6rem 1rem;
+  font-family:'Fira Code',monospace; font-size:0.78rem;
+  color:var(--cyan); pointer-events:none;
+  opacity:0; transition:opacity 0.2s;
+  box-shadow:0 0 20px rgba(0,217,255,0.2);
+}
+
+/* ââ EXPERTISE CARDS ââââââââââââââââââââââââââ */
+#expertise { background:var(--bg); }
+.expertise-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+  gap:1.5rem; margin-top:3rem;
+}
+.exp-card {
+  background:var(--glass);
+  border:1px solid var(--border);
+  border-radius:16px; padding:2rem;
+  position:relative; overflow:hidden;
+  transition:all 0.4s cubic-bezier(0.175,0.885,0.32,1.275);
+  cursor:default;
+}
+.exp-card::after {
+  content:''; position:absolute;
+  inset:0; border-radius:16px;
+  background:radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(0,217,255,0.08),transparent 60%);
+  opacity:0; transition:opacity 0.3s;
+  pointer-events:none;
+}
+.exp-card:hover::after{ opacity:1; }
+.exp-card:hover {
+  border-color:rgba(0,217,255,0.35);
+  transform:translateY(-6px) scale(1.01);
+  box-shadow:0 20px 60px rgba(0,217,255,0.1);
+}
+.exp-icon {
+  width:52px; height:52px; border-radius:12px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.5rem; margin-bottom:1.25rem;
+}
+.exp-card-title {
+  font-size:1.1rem; font-weight:700; margin-bottom:0.5rem;
+}
+.exp-card-desc { color:var(--muted); font-size:0.85rem; line-height:1.6; margin-bottom:1.25rem; }
+.tech-chips { display:flex; flex-wrap:wrap; gap:0.4rem; }
+.tech-chip {
+  padding:0.2rem 0.6rem;
+  border-radius:50px; font-size:0.7rem; font-weight:600;
+  font-family:'Fira Code',monospace; letter-spacing:0.03em;
+  background:rgba(0,217,255,0.08);
+  border:1px solid rgba(0,217,255,0.2);
+  color:var(--cyan);
+  transition:all 0.2s;
+}
+.tech-chip:hover { background:rgba(0,217,255,0.15); transform:scale(1.05); }
+.tech-chip.purple { background:rgba(124,58,237,0.1); border-color:rgba(124,58,237,0.3); color:#a78bfa; }
+.tech-chip.green { background:rgba(0,255,136,0.08); border-color:rgba(0,255,136,0.25); color:var(--green); }
+.tech-chip.orange { background:rgba(255,107,53,0.08); border-color:rgba(255,107,53,0.25); color:var(--orange); }
+.tech-chip.pink { background:rgba(244,114,182,0.08); border-color:rgba(244,114,182,0.25); color:#f472b6; }
+
+/* ââ TECH STACK MARQUEE âââââââââââââââââââââââ */
+#stack { background:var(--bg2); padding:5rem 0; overflow:hidden; }
+.stack-title {
+  text-align:center; font-family:'Fira Code',monospace;
+  color:var(--muted); font-size:0.8rem; letter-spacing:0.2em;
+  margin-bottom:2.5rem;
+}
+.stack-title::before{ content:'// '; }
+.marquee-row { display:flex; gap:1.5rem; margin-bottom:1.5rem; }
+.marquee-track {
+  display:flex; gap:1.5rem; animation:marquee 30s linear infinite;
+  white-space:nowrap;
+}
+.marquee-track.reverse{ animation-direction:reverse; animation-duration:25s; }
+.tech-pill {
+  padding:0.6rem 1.25rem;
+  border-radius:50px;
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.08);
+  font-family:'Fira Code',monospace; font-size:0.8rem;
+  color:var(--text); white-space:nowrap;
+  transition:all 0.3s;
+  flex-shrink:0;
+}
+.tech-pill:hover {
+  border-color:var(--cyan);
+  color:var(--cyan);
+  background:rgba(0,217,255,0.08);
+  box-shadow:0 0 15px rgba(0,217,255,0.15);
+}
+@keyframes marquee {
+  0%{ transform:translateX(0) }
+  100%{ transform:translateX(-50%) }
+}
+
+/* ââ CERTS ââââââââââââââââââââââââââââââââââââ */
+#certs { background:var(--bg); }
+.certs-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:1.5rem; margin-top:3rem;
+}
+.cert-card {
+  background:var(--glass);
+  border:1px solid var(--border);
+  border-radius:16px; padding:2rem;
+  text-align:center; position:relative; overflow:hidden;
+  transition:all 0.3s;
+}
+.cert-card::before {
+  content:''; position:absolute; top:-50%; left:-50%;
+  width:200%; height:200%;
+  background:conic-gradient(from 0deg, transparent 0%, var(--cyan) 5%, transparent 10%);
+  animation:spin-border 3s linear infinite;
+  opacity:0; transition:opacity 0.3s;
+}
+.cert-card:hover::before{ opacity:0.15; }
+.cert-card:hover {
+  border-color:rgba(0,217,255,0.4);
+  transform:translateY(-4px);
+  box-shadow:0 15px 40px rgba(0,217,255,0.1);
+}
+@keyframes spin-border{ to{transform:rotate(360deg)} }
+.cert-badge {
+  width:64px; height:64px; border-radius:50%;
+  margin:0 auto 1.25rem;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.8rem;
+  border:2px solid;
+}
+.cert-provider {
+  font-size:0.7rem; font-weight:700; letter-spacing:0.15em;
+  text-transform:uppercase; color:var(--muted); margin-bottom:0.5rem;
+  font-family:'Fira Code',monospace;
+}
+.cert-name { font-size:0.95rem; font-weight:700; line-height:1.3; }
+
+/* ââ RADAR SECTION ââââââââââââââââââââââââââââ */
+#radar { background:var(--bg2); }
+.radar-layout {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:4rem; align-items:center; margin-top:3rem;
+}
+@media(max-width:768px){ .radar-layout{ grid-template-columns:1fr; } }
+#radarCanvas {
+  width:100%; max-width:400px; height:400px; margin:0 auto; display:block;
+}
+.skill-bars { display:flex; flex-direction:column; gap:1.25rem; }
+.skill-bar-item { }
+.skill-bar-header {
+  display:flex; justify-content:space-between; align-items:center;
+  margin-bottom:0.4rem;
+}
+.skill-bar-name { font-size:0.85rem; font-weight:600; font-family:'Fira Code',monospace; }
+.skill-bar-pct { font-size:0.8rem; color:var(--cyan); font-family:'Fira Code',monospace; }
+.skill-bar-track {
+  height:6px; background:rgba(255,255,255,0.07); border-radius:3px; overflow:hidden;
+}
+.skill-bar-fill {
+  height:100%; border-radius:3px;
+  background:linear-gradient(90deg,var(--cyan),var(--purple));
+  width:0; transition:width 1.5s cubic-bezier(0.23,1,0.32,1);
+  position:relative;
+}
+.skill-bar-fill::after {
+  content:''; position:absolute; right:0; top:-3px;
+  width:12px; height:12px; border-radius:50%;
+  background:var(--cyan); box-shadow:0 0 8px var(--cyan);
+}
+
+/* ââ CONTACT ââââââââââââââââââââââââââââââââââ */
+#contact { background:var(--bg); text-align:center; }
+.contact-inner { max-width:600px; margin:0 auto; }
+.contact-tagline {
+  font-family:'Fira Code',monospace;
+  font-size:1.1rem; color:var(--muted); margin:1.5rem 0 2.5rem;
+  line-height:1.7;
+}
+.contact-tagline .hl { color:var(--cyan); }
+.contact-links {
+  display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;
+}
+.contact-btn {
+  display:flex; align-items:center; gap:0.6rem;
+  padding:0.85rem 1.75rem;
+  border-radius:8px; text-decoration:none;
+  font-family:'Fira Code',monospace; font-size:0.85rem; font-weight:600;
+  transition:all 0.3s;
+  border:1px solid;
+}
+.btn-primary {
+  background:linear-gradient(135deg,var(--cyan),var(--purple));
+  color:#000; border-color:transparent;
+  box-shadow:0 0 20px rgba(0,217,255,0.3);
+}
+.btn-primary:hover { transform:translateY(-2px); box-shadow:0 0 30px rgba(0,217,255,0.5); }
+.btn-outline {
+  background:transparent; color:var(--cyan); border-color:rgba(0,217,255,0.3);
+}
+.btn-outline:hover {
+  background:rgba(0,217,255,0.08);
+  border-color:var(--cyan);
+  transform:translateY(-2px);
+}
+
+/* ââ FOOTER âââââââââââââââââââââââââââââââââââ */
+footer {
+  padding:2rem;
+  text-align:center;
+  border-top:1px solid var(--border);
+  font-family:'Fira Code',monospace; font-size:0.75rem; color:var(--muted);
+}
+footer span{ color:var(--cyan); }
+
+/* ââ DIVIDERS âââââââââââââââââââââââââââââââââ */
+.divider {
+  height:1px; background:linear-gradient(90deg,transparent,var(--border),transparent);
+  margin:0 auto; max-width:800px;
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">raj<span>.</span>ravi<span>()</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">about</a></li>
+    <li><a href="#skills">skills</a></li>
+    <li><a href="#expertise">expertise</a></li>
+    <li><a href="#stack">stack</a></li>
+    <li><a href="#certs">certs</a></li>
+    <li><a href="#contact">contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <canvas id="neuralCanvas"></canvas>
+  <div class="hero-content">
+    <div class="terminal-window">
+      <div class="terminal-header">
+        <div class="dot dot-r"></div>
+        <div class="dot dot-y"></div>
+        <div class="dot dot-g"></div>
+        <span class="terminal-title">architect.py</span>
+      </div>
+      <div class="terminal-body" id="terminalBody">
+        <div id="typewriterOutput"></div>
+        <span class="cursor" id="cursor"></span>
+      </div>
+    </div>
+    <div class="hero-badges" id="heroBadges" style="opacity:0;transition:opacity 1s 2s">
+      <span class="hero-badge badge-cyan">LLM Architect</span>
+      <span class="hero-badge badge-purple">Agentic AI</span>
+      <span class="hero-badge badge-green">RAG Systems</span>
+      <span class="hero-badge badge-pink">Voice AI</span>
+      <span class="hero-badge badge-orange">MLOps</span>
+    </div>
+    <div class="hero-tagline" id="heroTagline" style="opacity:0;transition:opacity 1s 2.5s">
+      thinking in <span>embeddings</span> Â· dreaming in tokens
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-arrow"></div>
+    scroll
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-label">about</div>
+      <h2 class="section-title"><span class="glow-text">Who I Am</span></h2>
+      <p class="section-sub">Principal AI Architect with 8+ years building enterprise-scale intelligent systems â from neural networks to multi-agent platforms that actually ship to production.</p>
+    </div>
+    <div class="about-grid" style="margin-top:3rem;">
+      <div class="reveal">
+        <div class="code-block">
+          <div class="code-header">
+            <div class="code-header-dot" style="background:#ff5f56"></div>
+            <div class="code-header-dot" style="background:#ffbd2e"></div>
+            <div class="code-header-dot" style="background:#27c93f"></div>
+            <span class="code-filename">me.py</span>
+          </div>
+          <div class="code-body">
+            <div class="code-line"><span class="t-kw">class</span> <span class="t-cls">AIArchitect</span><span class="t-op">:</span></div>
+            <div class="code-line"><span class="t-fn">  def</span> <span class="t-cyan">__init__</span><span class="t-op">(</span><span class="t-self">self</span><span class="t-op">):</span></div>
+            <div class="code-line"><span class="t-self">    self</span><span class="t-op">.</span>name       <span class="t-op">=</span> <span class="t-str">"Raj Ravi"</span></div>
+            <div class="code-line"><span class="t-self">    self</span><span class="t-op">.</span>role       <span class="t-op">=</span> <span class="t-str">"Principal AI Architect"</span></div>
+            <div class="code-line"><span class="t-self">    self</span><span class="t-op">.</span>location   <span class="t-op">=</span> <span class="t-str">"Atlanta, GA ð"</span></div>
+            <div class="code-line"><span class="t-self">    self</span><span class="t-op">.</span>experience <span class="t-op">=</span> <span class="t-num">8</span> <span class="t-comment"># years of production AI</span></div>
+            <div class="code-line"><span class="t-self">    self</span><span class="t-op">.</span>domains    <span class="t-op">=</span> <span class="t-op">[</span></div>
+            <div class="code-line"><span class="t-str">      "LLMs &amp; GenAI"</span><span class="t-op">,</span> <span class="t-str">"Agentic AI"</span><span class="t-op">,</span></div>
+            <div class="code-line"><span class="t-str">      "RAG Systems"</span><span class="t-op">,</span>   <span class="t-str">"Voice AI"</span><span class="t-op">,</span></div>
+            <div class="code-line"><span class="t-str">      "Computer Vision"</span><span class="t-op">,</span><span class="t-str">"MLOps"</span></div>
+            <div class="code-line"><span class="t-op">    ]</span></div>
+            <div class="code-line"><span class="t-self">    self</span><span class="t-op">.</span>superpower <span class="t-op">=</span> <span class="t-str">"system design"</span></div>
+            <div class="code-line"><span class="t-self">    self</span><span class="t-op">.</span>clouds     <span class="t-op">=</span> <span class="t-op">[</span><span class="t-str">"Azure"</span><span class="t-op">,</span><span class="t-str">"AWS"</span><span class="t-op">,</span><span class="t-str">"GCP"</span><span class="t-op">]</span></div>
+            <div class="code-line">&nbsp;</div>
+            <div class="code-line"><span class="t-fn">  def</span> <span class="t-cyan">fun_fact</span><span class="t-op">(</span><span class="t-self">self</span><span class="t-op">):</span></div>
+            <div class="code-line"><span class="t-kw">    return</span> <span class="t-op">(</span></div>
+            <div class="code-line"><span class="t-str">      "I think in embeddings"</span></div>
+            <div class="code-line"><span class="t-str">      " and dream in tokens ð§ "</span></div>
+            <div class="code-line"><span class="t-op">    )</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-number">8+</div>
+            <div class="stat-label">YEARS IN AI/ML</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">50+</div>
+            <div class="stat-label">TECH MASTERED</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">4</div>
+            <div class="stat-label">CLOUD PLATFORMS</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">4</div>
+            <div class="stat-label">CERTIFICATIONS</div>
+          </div>
+        </div>
+        <div style="margin-top:1.25rem">
+          <div class="code-block">
+            <div class="code-header">
+              <div class="code-header-dot" style="background:#ff5f56"></div>
+              <div class="code-header-dot" style="background:#ffbd2e"></div>
+              <div class="code-header-dot" style="background:#27c93f"></div>
+              <span class="code-filename">philosophy.py</span>
+            </div>
+            <div class="code-body" style="font-size:0.78rem;line-height:1.8">
+              <div class="code-line"><span class="t-comment"># My approach to AI architecture</span></div>
+              <div class="code-line"><span class="t-fn">def</span> <span class="t-cyan">build_ai_system</span><span class="t-op">(</span>problem<span class="t-op">):</span></div>
+              <div class="code-line"><span class="t-kw">  assert</span> problem<span class="t-op">.</span>is_well_defined<span class="t-op">()</span></div>
+              <div class="code-line"><span class="t-kw">  assert</span> data<span class="t-op">.</span>quality <span class="t-op">&gt;</span> <span class="t-num">0.9</span></div>
+              <div class="code-line"><span class="t-kw">  return</span> <span class="t-op">{</span></div>
+              <div class="code-line"><span class="t-str">    "reliable"</span><span class="t-op">:</span> <span class="t-kw">True</span><span class="t-op">,</span></div>
+              <div class="code-line"><span class="t-str">    "responsible"</span><span class="t-op">:</span> <span class="t-kw">True</span><span class="t-op">,</span></div>
+              <div class="code-line"><span class="t-str">    "production_ready"</span><span class="t-op">:</span> <span class="t-kw">True</span></div>
+              <div class="code-line"><span class="t-op">  }</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SKILLS GALAXY -->
+<section id="skills">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-label">skills galaxy</div>
+      <h2 class="section-title"><span class="glow-text">Skill Constellation</span></h2>
+      <p class="section-sub">An interactive map of my technical universe â drag to explore, hover to inspect.</p>
+    </div>
+    <canvas id="skillCanvas" class="reveal reveal-delay-2"></canvas>
+    <p class="skill-hint reveal reveal-delay-3">// drag to pan Â· hover nodes for details Â· categories color-coded</p>
+  </div>
+</section>
+<div id="skillTooltip"></div>
+
+<div class="divider"></div>
+
+<!-- EXPERTISE -->
+<section id="expertise">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-label">expertise</div>
+      <h2 class="section-title"><span class="glow-text">What I Build</span></h2>
+      <p class="section-sub">Turning research into production systems that scale, perform, and stay reliable under real-world conditions.</p>
+    </div>
+    <div class="expertise-grid">
+
+      <div class="exp-card reveal" style="--accent:#00d9ff">
+        <div class="exp-icon" style="background:rgba(0,217,255,0.1);border:1px solid rgba(0,217,255,0.2)">ð¤</div>
+        <div class="exp-card-title">LLMs &amp; GenAI</div>
+        <div class="exp-card-desc">Architecting LLM-powered platforms with prompt engineering, fine-tuning (LoRA/QLoRA, RLHF), function calling, and production-grade reasoning pipelines.</div>
+        <div class="tech-chips">
+          <span class="tech-chip">GPT-4o</span>
+          <span class="tech-chip">Claude</span>
+          <span class="tech-chip">Gemini</span>
+          <span class="tech-chip">LLaMA</span>
+          <span class="tech-chip">LoRA/QLoRA</span>
+          <span class="tech-chip">RLHF</span>
+        </div>
+      </div>
+
+      <div class="exp-card reveal reveal-delay-1" style="--accent:#7c3aed">
+        <div class="exp-icon" style="background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.2)">ð</div>
+        <div class="exp-card-title">RAG &amp; Vector Systems</div>
+        <div class="exp-card-desc">Enterprise RAG strategies using vector databases, embedding pipelines, hybrid retrieval, semantic search, and evaluation frameworks for grounded AI.</div>
+        <div class="tech-chips">
+          <span class="tech-chip purple">LangChain</span>
+          <span class="tech-chip purple">LlamaIndex</span>
+          <span class="tech-chip purple">Pinecone</span>
+          <span class="tech-chip purple">pgvector</span>
+          <span class="tech-chip purple">FAISS</span>
+          <span class="tech-chip purple">Qdrant</span>
+        </div>
+      </div>
+
+      <div class="exp-card reveal reveal-delay-2" style="--accent:#00ff88">
+        <div class="exp-icon" style="background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.2)">ð¸ï¸</div>
+        <div class="exp-card-title">Agentic AI Systems</div>
+        <div class="exp-card-desc">Multi-agent orchestration, autonomous tool use, state management, memory systems, and complex workflow automation at enterprise scale.</div>
+        <div class="tech-chips">
+          <span class="tech-chip green">LangGraph</span>
+          <span class="tech-chip green">CrewAI</span>
+          <span class="tech-chip green">Semantic Kernel</span>
+          <span class="tech-chip green">AutoGen</span>
+          <span class="tech-chip green">FastAPI</span>
+          <span class="tech-chip green">Redis</span>
+        </div>
+      </div>
+
+      <div class="exp-card reveal" style="--accent:#ff6b35">
+        <div class="exp-icon" style="background:rgba(255,107,53,0.1);border:1px solid rgba(255,107,53,0.2)">ð</div>
+        <div class="exp-card-title">MLOps &amp; Deployment</div>
+        <div class="exp-card-desc">End-to-end ML lifecycle management â from CI/CD pipelines and model versioning to containerized deployment, observability, and drift detection in production.</div>
+        <div class="tech-chips">
+          <span class="tech-chip orange">MLflow</span>
+          <span class="tech-chip orange">Kubeflow</span>
+          <span class="tech-chip orange">Docker</span>
+          <span class="tech-chip orange">Kubernetes</span>
+          <span class="tech-chip orange">Seldon</span>
+          <span class="tech-chip orange">Grafana</span>
+        </div>
+      </div>
+
+      <div class="exp-card reveal reveal-delay-1" style="--accent:#f472b6">
+        <div class="exp-icon" style="background:rgba(244,114,182,0.1);border:1px solid rgba(244,114,182,0.2)">ðï¸</div>
+        <div class="exp-card-title">Voice AI &amp; Multimodal</div>
+        <div class="exp-card-desc">ASR, TTS, Voice Activity Detection, barge-in, emotion/intent detection â full-stack voice AI pipelines for hands-free conversational interaction.</div>
+        <div class="tech-chips">
+          <span class="tech-chip pink">Whisper</span>
+          <span class="tech-chip pink">Azure Speech</span>
+          <span class="tech-chip pink">ElevenLabs</span>
+          <span class="tech-chip pink">WebRTC</span>
+          <span class="tech-chip pink">Twilio</span>
+          <span class="tech-chip pink">VAD</span>
+        </div>
+      </div>
+
+      <div class="exp-card reveal reveal-delay-2" style="--accent:#e5c07b">
+        <div class="exp-icon" style="background:rgba(229,192,123,0.1);border:1px solid rgba(229,192,123,0.2)">ðï¸</div>
+        <div class="exp-card-title">Computer Vision &amp; ML</div>
+        <div class="exp-card-desc">CNN architectures, image segmentation, anatomical mapping, feature engineering, classical ML, and deep learning pipelines from research to clinical production.</div>
+        <div class="tech-chips">
+          <span class="tech-chip" style="color:#e5c07b;border-color:rgba(229,192,123,0.3);background:rgba(229,192,123,0.08)">PyTorch</span>
+          <span class="tech-chip" style="color:#e5c07b;border-color:rgba(229,192,123,0.3);background:rgba(229,192,123,0.08)">TensorFlow</span>
+          <span class="tech-chip" style="color:#e5c07b;border-color:rgba(229,192,123,0.3);background:rgba(229,192,123,0.08)">OpenCV</span>
+          <span class="tech-chip" style="color:#e5c07b;border-color:rgba(229,192,123,0.3);background:rgba(229,192,123,0.08)">YOLO</span>
+          <span class="tech-chip" style="color:#e5c07b;border-color:rgba(229,192,123,0.3);background:rgba(229,192,123,0.08)">XGBoost</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- TECH STACK MARQUEE -->
+<section id="stack">
+  <div class="stack-title">full tech stack</div>
+  <div class="marquee-row" style="overflow:hidden">
+    <div class="marquee-track">
+      <div class="tech-pill">Python</div><div class="tech-pill">PyTorch</div><div class="tech-pill">TensorFlow</div>
+      <div class="tech-pill">Scikit-learn</div><div class="tech-pill">LangChain</div><div class="tech-pill">LlamaIndex</div>
+      <div class="tech-pill">Azure OpenAI</div><div class="tech-pill">GPT-4o</div><div class="tech-pill">LangGraph</div>
+      <div class="tech-pill">CrewAI</div><div class="tech-pill">Semantic Kernel</div><div class="tech-pill">OpenCV</div>
+      <!-- duplicate for infinite loop -->
+      <div class="tech-pill">Python</div><div class="tech-pill">PyTorch</div><div class="tech-pill">TensorFlow</div>
+      <div class="tech-pill">Scikit-learn</div><div class="tech-pill">LangChain</div><div class="tech-pill">LlamaIndex</div>
+      <div class="tech-pill">Azure OpenAI</div><div class="tech-pill">GPT-4o</div><div class="tech-pill">LangGraph</div>
+      <div class="tech-pill">CrewAI</div><div class="tech-pill">Semantic Kernel</div><div class="tech-pill">OpenCV</div>
+    </div>
+  </div>
+  <div class="marquee-row" style="overflow:hidden">
+    <div class="marquee-track reverse">
+      <div class="tech-pill">MLflow</div><div class="tech-pill">Kubeflow</div><div class="tech-pill">Docker</div>
+      <div class="tech-pill">Kubernetes</div><div class="tech-pill">Azure ML</div><div class="tech-pill">AWS SageMaker</div>
+      <div class="tech-pill">GCP Vertex AI</div><div class="tech-pill">Databricks</div><div class="tech-pill">Snowflake</div>
+      <div class="tech-pill">FastAPI</div><div class="tech-pill">Kafka</div><div class="tech-pill">Airflow</div>
+      <!-- duplicate -->
+      <div class="tech-pill">MLflow</div><div class="tech-pill">Kubeflow</div><div class="tech-pill">Docker</div>
+      <div class="tech-pill">Kubernetes</div><div class="tech-pill">Azure ML</div><div class="tech-pill">AWS SageMaker</div>
+      <div class="tech-pill">GCP Vertex AI</div><div class="tech-pill">Databricks</div><div class="tech-pill">Snowflake</div>
+      <div class="tech-pill">FastAPI</div><div class="tech-pill">Kafka</div><div class="tech-pill">Airflow</div>
+    </div>
+  </div>
+  <div class="marquee-row" style="overflow:hidden;margin-bottom:0">
+    <div class="marquee-track">
+      <div class="tech-pill">pgvector</div><div class="tech-pill">FAISS</div><div class="tech-pill">Pinecone</div>
+      <div class="tech-pill">Qdrant</div><div class="tech-pill">Redis</div><div class="tech-pill">PostgreSQL</div>
+      <div class="tech-pill">MongoDB</div><div class="tech-pill">Spark</div><div class="tech-pill">PySpark</div>
+      <div class="tech-pill">Prometheus</div><div class="tech-pill">Grafana</div><div class="tech-pill">OpenTelemetry</div>
+      <!-- duplicate -->
+      <div class="tech-pill">pgvector</div><div class="tech-pill">FAISS</div><div class="tech-pill">Pinecone</div>
+      <div class="tech-pill">Qdrant</div><div class="tech-pill">Redis</div><div class="tech-pill">PostgreSQL</div>
+      <div class="tech-pill">MongoDB</div><div class="tech-pill">Spark</div><div class="tech-pill">PySpark</div>
+      <div class="tech-pill">Prometheus</div><div class="tech-pill">Grafana</div><div class="tech-pill">OpenTelemetry</div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILL RADAR -->
+<section id="radar">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-label">proficiency</div>
+      <h2 class="section-title"><span class="glow-text">Skill Radar</span></h2>
+    </div>
+    <div class="radar-layout">
+      <canvas id="radarCanvas" class="reveal"></canvas>
+      <div class="skill-bars reveal reveal-delay-2">
+        <div class="skill-bar-item">
+          <div class="skill-bar-header"><span class="skill-bar-name">LLMs &amp; GenAI</span><span class="skill-bar-pct">96%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="96"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-header"><span class="skill-bar-name">Agentic AI &amp; RAG</span><span class="skill-bar-pct">94%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="94"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-header"><span class="skill-bar-name">MLOps &amp; DevOps</span><span class="skill-bar-pct">92%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="92"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-header"><span class="skill-bar-name">Cloud Architecture</span><span class="skill-bar-pct">90%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="90"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-header"><span class="skill-bar-name">Deep Learning</span><span class="skill-bar-pct">90%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="90"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-header"><span class="skill-bar-name">Data Engineering</span><span class="skill-bar-pct">87%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="87"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-header"><span class="skill-bar-name">Voice AI &amp; Multimodal</span><span class="skill-bar-pct">85%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="85"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-header"><span class="skill-bar-name">Computer Vision</span><span class="skill-bar-pct">84%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" data-width="84"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certs" style="background:var(--bg)">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-label">certifications</div>
+      <h2 class="section-title"><span class="glow-text">Credentials</span></h2>
+      <p class="section-sub">Validated expertise across cloud AI platforms and deep learning.</p>
+    </div>
+    <div class="certs-grid">
+      <div class="cert-card reveal">
+        <div class="cert-badge" style="background:rgba(0,120,212,0.1);border-color:rgba(0,120,212,0.3)">âï¸</div>
+        <div class="cert-provider">Microsoft Azure</div>
+        <div class="cert-name" style="color:#60a5fa">Azure AI Engineer Associate</div>
+      </div>
+      <div class="cert-card reveal reveal-delay-1">
+        <div class="cert-badge" style="background:rgba(0,120,212,0.1);border-color:rgba(0,120,212,0.3)">ð</div>
+        <div class="cert-provider">Microsoft Azure</div>
+        <div class="cert-name" style="color:#60a5fa">Azure Data Scientist Associate</div>
+      </div>
+      <div class="cert-card reveal reveal-delay-2">
+        <div class="cert-badge" style="background:rgba(118,185,0,0.1);border-color:rgba(118,185,0,0.3)">â¡</div>
+        <div class="cert-provider">NVIDIA DLI</div>
+        <div class="cert-name" style="color:#86efac">Deep Learning Institute</div>
+      </div>
+      <div class="cert-card reveal reveal-delay-3">
+        <div class="cert-badge" style="background:rgba(255,153,0,0.1);border-color:rgba(255,153,0,0.3)">ð¤</div>
+        <div class="cert-provider">Amazon Web Services</div>
+        <div class="cert-name" style="color:#fbbf24">AWS ML â Specialty</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="contact-inner reveal">
+      <div class="section-label" style="text-align:center;display:block">contact</div>
+      <h2 class="section-title" style="text-align:center"><span class="glow-text">Let's Build Together</span></h2>
+      <p class="contact-tagline">
+        Got a complex AI problem? I'm fluent in <span class="hl">embeddings</span>,<br>
+        obsessed with <span class="hl">production systems</span>, and always up for a challenge.
+      </p>
+      <div class="contact-links">
+        <a href="mailto:raavi.rajkishore@gmail.com" class="contact-btn btn-primary">
+          <span>ð¬</span> raavi.rajkishore@gmail.com
+        </a>
+        <a href="https://github.com/rajkraavi" target="_blank" class="contact-btn btn-outline">
+          <span>â¨ï¸</span> github/rajkraavi
+        </a>
+        <a href="https://linkedin.com" target="_blank" class="contact-btn btn-outline">
+          <span>ð</span> LinkedIn
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>built with <span>embeddings &amp; caffeine</span> Â· raj ravi Â© 2025 Â· Atlanta, GA</p>
+</footer>
+
+<script>
+// âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// NEURAL NETWORK BACKGROUND
+// âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+(function initNeuralNetwork() {
+  const canvas = document.getElementById('neuralCanvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, nodes = [], animFrame;
+
+  function resize() {
+    W = canvas.width = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+
+  function Node() {
+    this.x = Math.random() * W;
+    this.y = Math.random() * H;
+    this.vx = (Math.random() - 0.5) * 0.4;
+    this.vy = (Math.random() - 0.5) * 0.4;
+    this.r = Math.random() * 2.5 + 1;
+    this.pulse = Math.random() * Math.PI * 2;
+    this.pulseSpeed = Math.random() * 0.02 + 0.005;
+    const colors = ['#00d9ff','#7c3aed','#00ff88','#ff6b35'];
+    this.color = colors[Math.floor(Math.random() * colors.length)];
+  }
+
+  Node.prototype.update = function() {
+    this.x += this.vx;
+    this.y += this.vy;
+    this.pulse += this.pulseSpeed;
+    if (this.x < 0 || this.x > W) this.vx *= -1;
+    if (this.y < 0 || this.y > H) this.vy *= -1;
+  };
+
+  function initNodes() {
+    const count = Math.min(Math.floor((W * H) / 14000), 90);
+    nodes = Array.from({length: count}, () => new Node());
+  }
+
+  function drawSignal(x1, y1, x2, y2, progress, color) {
+    const px = x1 + (x2 - x1) * progress;
+    const py = y1 + (y2 - y1) * progress;
+    const grad = ctx.createRadialGradient(px, py, 0, px, py, 6);
+    grad.addColorStop(0, color);
+    grad.addColorStop(1, 'transparent');
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.arc(px, py, 6, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  let signalTime = 0;
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    signalTime += 0.005;
+
+    nodes.forEach(n => n.update());
+
+    // Draw connections
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const a = nodes[i], b = nodes[j];
+        const dx = a.x - b.x, dy = a.y - b.y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < 160) {
+          const alpha = (1 - dist/160) * 0.3;
+          ctx.strokeStyle = `rgba(0,217,255,${alpha})`;
+          ctx.lineWidth = 0.5;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
+
+          // Animated signal
+          if ((i + j) % 7 === 0) {
+            const progress = (Math.sin(signalTime * (i+1) * 0.3) + 1) / 2;
+            drawSignal(a.x, a.y, b.x, b.y, progress, a.color + '88');
+          }
+        }
+      }
+    }
+
+    // Draw nodes
+    nodes.forEach(n => {
+      const glow = Math.sin(n.pulse) * 0.4 + 0.6;
+      // Outer glow
+      const grad = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.r * 5);
+      grad.addColorStop(0, n.color + Math.floor(glow * 60).toString(16).padStart(2,'0'));
+      grad.addColorStop(1, 'transparent');
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r * 5, 0, Math.PI * 2);
+      ctx.fill();
+      // Core
+      ctx.fillStyle = n.color;
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r * glow, 0, Math.PI * 2);
+      ctx.fill();
+    });
+
+    animFrame = requestAnimationFrame(draw);
+  }
+
+  resize();
+  initNodes();
+  draw();
+  window.addEventListener('resize', () => { resize(); initNodes(); });
+})();
+
+// âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// TYPEWRITER EFFECT
+// âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+(function initTypewriter() {
+  const lines = [
+    { text: '# Principal AI Architect', cls: 't-comment' },
+    { text: '', cls: '' },
+    { text: 'class Raj:', cls: 't-kw', span2: 'Raj', cls2: 't-cls' },
+    { text: '  role     = "Principal AI Architect"', cls: 'mixed1' },
+    { text: '  yoe      = 8  # years', cls: 'mixed2' },
+    { text: '  thinking = "in embeddings"', cls: 'mixed3' },
+    { text: '  building = "the future"', cls: 'mixed4' },
+  ];
+
+  const renderLine = {
+    't-comment': s => `<span class="t-comment">${s}</span>`,
+    '': s => '',
+    't-kw': s => `<span class="t-kw">class</span> <span class="t-cls">Raj</span><span class="t-op">:</span>`,
+    'mixed1': s => `<span class="t-self">  self</span><span class="t-op">.</span>role     <span class="t-op">=</span> <span class="t-str">"Principal AI Architect"</span>`,
+    'mixed2': s => `<span class="t-self">  self</span><span class="t-op">.</span>yoe      <span class="t-op">=</span> <span class="t-num">8</span>  <span class="t-comment"># years</span>`,
+    'mixed3': s => `<span class="t-self">  self</span><span class="t-op">.</span>thinking <span class="t-op">=</span> <span class="t-str">"in embeddings"</span>`,
+    'mixed4': s => `<span class="t-self">  self</span><span class="t-op">.</span>building <span class="t-op">=</span> <span class="t-str">"the future ð"</span>`,
+  };
+
+  const output = document.getElementById('typewriterOutput');
+  let lineIdx = 0, charIdx = 0;
+  const fullLines = [];
+
+  function type() {
+    if (lineIdx >= lines.length) {
+      document.getElementById('heroBadges').style.opacity = '1';
+      document.getElementById('heroTagline').style.opacity = '1';
+      return;
+    }
+    const line = lines[lineIdx];
+    if (charIdx === 0) fullLines.push('');
+
+    if (charIdx < line.text.length) {
+      fullLines[lineIdx] = line.text.substring(0, ++charIdx);
+      renderAll();
+      setTimeout(type, 28 + Math.random() * 30);
+    } else {
+      lineIdx++;
+      charIdx = 0;
+      setTimeout(type, 120);
+    }
+  }
+
+  function renderAll() {
+    output.innerHTML = fullLines.map((t, i) => {
+      const l = lines[i];
+      if (!l) return '';
+      if (l.cls === '') return '<div>&nbsp;</div>';
+      const fn = renderLine[l.cls];
+      if (i < lineIdx) return `<div>${fn(t)}</div>`;
+      return `<div>${fn(t)}</div>`;
+    }).join('');
+  }
+
+  setTimeout(type, 600);
+})();
+
+// âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// SKILL GALAXY (CANVAS FORCE-DIRECTED GRAPH)
+// âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+(function initSkillGalaxy() {
+  const canvas = document.getElementById('skillCanvas');
+  const ctx = canvas.getContext('2d');
+  const tooltip = document.getElementById('skillTooltip');
+
+  const categories = {
+    'LLMs & GenAI':    { color: '#00d9ff', desc: 'Large Language Models & Generative AI' },
+    'RAG & Vector':    { color: '#7c3aed', desc: 'Retrieval-Augmented Generation & Vector Databases' },
+    'Agentic AI':      { color: '#00ff88', desc: 'Multi-Agent Orchestration & Autonomous Systems' },
+    'MLOps':           { color: '#ff6b35', desc: 'ML Operations, Deployment & Monitoring' },
+    'Cloud':           { color: '#f59e0b', desc: 'Multi-Cloud AI Infrastructure' },
+    'Voice & Vision':  { color: '#f472b6', desc: 'Voice AI, ASR/TTS & Computer Vision' },
+    'Data Engineering':{ color: '#a78bfa', desc: 'Data Pipelines, Streaming & Analytics' },
+  };
+
+  const skills = [
+    // LLMs
+    {label:'GPT-4o', cat:'LLMs & GenAI', size:22, x:0, y:0, vx:0, vy:0},
+    {label:'Claude', cat:'LLMs & GenAI', size:20, x:0, y:0, vx:0, vy:0},
+    {label:'LLaMA', cat:'LLMs & GenAI', size:18, x:0, y:0, vx:0, vy:0},
+    {label:'LoRA/QLoRA', cat:'LLMs & GenAI', size:16, x:0, y:0, vx:0, vy:0},
+    {label:'RLHF', cat:'LLMs & GenAI', size:15, x:0, y:0, vx:0, vy:0},
+    {label:'Prompt Eng.', cat:'LLMs & GenAI', size:16, x:0, y:0, vx:0, vy:0},
+    // RAG
+    {label:'LangChain', cat:'RAG & Vector', size:22, x:0, y:0, vx:0, vy:0},
+    {label:'LlamaIndex', cat:'RAG & Vector', size:20, x:0, y:0, vx:0, vy:0},
+    {label:'pgvector', cat:'RAG & Vector', size:17, x:0, y:0, vx:0, vy:0},
+    {label:'FAISS', cat:'RAG & Vector', size:16, x:0, y:0, vx:0, vy:0},
+    {label:'Qdrant', cat:'RAG & Vector', size:16, x:0, y:0, vx:0, vy:0},
+    {label:'Pinecone', cat:'RAG & Vector', size:16, x:0, y:0, vx:0, vy:0},
+    // Agentic
+    {label:'LangGraph', cat:'Agentic AI', size:21, x:0, y:0, vx:0, vy:0},
+    {label:'CrewAI', cat:'Agentic AI', size:18, x:0, y:0, vx:0, vy:0},
+    {label:'Semantic Kernel', cat:'Agentic AI', size:17, x:0, y:0, vx:0, vy:0},
+    {label:'FastAPI', cat:'Agentic AI', size:16, x:0, y:0, vx:0, vy:0},
+    {label:'Redis', cat:'Agentic AI', size:15, x:0, y:0, vx:0, vy:0},
+    // MLOps
+    {label:'MLflow', cat:'MLOps', size:20, x:0, y:0, vx:0, vy:0},
+    {label:'Kubeflow', cat:'MLOps', size:19, x:0, y:0, vx:0, vy:0},
+    {label:'Kubernetes', cat:'MLOps', size:20, x:0, y:0, vx:0, vy:0},
+    {label:'Docker', cat:'MLOps', size:18, x:0, y:0, vx:0, vy:0},
+    {label:'Grafana', cat:'MLOps', size:16, x:0, y:0, vx:0, vy:0},
+    {label:'OpenTelemetry', cat:'MLOps', size:15, x:0, y:0, vx:0, vy:0},
+    // Cloud
+    {label:'Azure ML', cat:'Cloud', size:21, x:0, y:0, vx:0, vy:0},
+    {label:'AWS SageMaker', cat:'Cloud', size:20, x:0, y:0, vx:0, vy:0},
+    {label:'GCP Vertex AI', cat:'Cloud', size:19, x:0, y:0, vx:0, vy:0},
+    {label:'Databricks', cat:'Cloud', size:18, x:0, y:0, vx:0, vy:0},
+    // Voice & Vision
+    {label:'Whisper', cat:'Voice & Vision', size:18, x:0, y:0, vx:0, vy:0},
+    {label:'Azure Speech', cat:'Voice & Vision', size:17, x:0, y:0, vx:0, vy:0},
+    {label:'OpenCV', cat:'Voice & Vision', size:18, x:0, y:0, vx:0, vy:0},
+    {label:'PyTorch', cat:'Voice & Vision', size:21, x:0, y:0, vx:0, vy:0},
+    {label:'TensorFlow', cat:'Voice & Vision', size:20, x:0, y:0, vx:0, vy:0},
+    // Data Eng
+    {label:'PySpark', cat:'Data Engineering', size:19, x:0, y:0, vx:0, vy:0},
+    {label:'Airflow', cat:'Data Engineering', size:18, x:0, y:0, vx:0, vy:0},
+    {label:'Kafka', cat:'Data Engineering', size:17, x:0, y:0, vx:0, vy:0},
+    {label:'Snowflake', cat:'Data Engineering', size:17, x:0, y:0, vx:0, vy:0},
+    {label:'Databricks', cat:'Data Engineering', size:18, x:0, y:0, vx:0, vy:0},
+  ];
+
+  let W, H, offsetX = 0, offsetY = 0;
+  let dragging = false, lastX, lastY, hoveredNode = null;
+
+  function resize() {
+    W = canvas.width = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+    // Scatter nodes in clusters
+    const catList = Object.keys(categories);
+    skills.forEach(s => {
+      if (s.x === 0 && s.y === 0) {
+        const ci = catList.indexOf(s.cat);
+        const angle = (ci / catList.length) * Math.PI * 2;
+        const cx = W/2 + Math.cos(angle) * W * 0.28;
+        const cy = H/2 + Math.sin(angle) * H * 0.28;
+        s.x = cx + (Math.random()-0.5) * 80;
+        s.y = cy + (Math.random()-0.5) * 80;
+      }
+    });
+  }
+
+  // Simple force simulation
+  function simulate() {
+    const catList = Object.keys(categories);
+    skills.forEach(s => {
+      // Gravity toward cluster center
+      const ci = catList.indexOf(s.cat);
+      const angle = (ci / catList.length) * Math.PI * 2;
+      const cx = W/2 + Math.cos(angle) * W * 0.28 + offsetX;
+      const cy = H/2 + Math.sin(angle) * H * 0.28 + offsetY;
+      s.vx += (cx - s.x) * 0.003;
+      s.vy += (cy - s.y) * 0.003;
+
+      // Repulsion from others
+      skills.forEach(t => {
+        if (t === s) return;
+        const dx = s.x - t.x, dy = s.y - t.y;
+        const dist = Math.sqrt(dx*dx + dy*dy) || 1;
+        const minDist = (s.size + t.size) * 2.5;
+        if (dist < minDist) {
+          const force = (minDist - dist) / dist * 0.15;
+          s.vx += dx * force;
+          s.vy += dy * force;
+        }
+      });
+
+      s.vx *= 0.88;
+      s.vy *= 0.88;
+      s.x += s.vx;
+      s.y += s.vy;
+    });
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+
+    // Draw category labels
+    const catList = Object.keys(categories);
+    catList.forEach((cat, i) => {
+      const angle = (i / catList.length) * Math.PI * 2;
+      const cx = W/2 + Math.cos(angle) * W * 0.28 + offsetX;
+      const cy = H/2 + Math.sin(angle) * H * 0.28 + offsetY;
+      const color = categories[cat].color;
+      ctx.fillStyle = color + '30';
+      ctx.beginPath();
+      ctx.arc(cx, cy, 55, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.font = '600 10px Fira Code';
+      ctx.fillStyle = color + 'aa';
+      ctx.textAlign = 'center';
+      ctx.fillText(cat.toUpperCase(), cx, cy - 60);
+    });
+
+    // Draw connections between same category
+    skills.forEach((a, i) => {
+      skills.forEach((b, j) => {
+        if (j <= i || a.cat !== b.cat) return;
+        const dx = a.x - b.x, dy = a.y - b.y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < 120) {
+          ctx.strokeStyle = categories[a.cat].color + Math.floor((1-dist/120)*40).toString(16).padStart(2,'0');
+          ctx.lineWidth = 0.8;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
+        }
+      });
+    });
+
+    // Draw nodes
+    skills.forEach(s => {
+      const color = categories[s.cat].color;
+      const isHovered = s === hoveredNode;
+      const r = s.size * (isHovered ? 1.3 : 1);
+
+      // Glow
+      const glow = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, r*3);
+      glow.addColorStop(0, color + (isHovered ? 'aa' : '44'));
+      glow.addColorStop(1, 'transparent');
+      ctx.fillStyle = glow;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, r*3, 0, Math.PI*2);
+      ctx.fill();
+
+      // Node
+      ctx.fillStyle = isHovered ? color : color + 'cc';
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, r, 0, Math.PI*2);
+      ctx.fill();
+
+      // Label
+      ctx.font = `${isHovered?'700':'500'} ${Math.max(10, s.size*0.65)}px Fira Code`;
+      ctx.fillStyle = isHovered ? '#fff' : color + 'dd';
+      ctx.textAlign = 'center';
+      ctx.fillText(s.label, s.x, s.y + r + 13);
+    });
+
+    simulate();
+    requestAnimationFrame(draw);
+  }
+
+  // Mouse events
+  canvas.addEventListener('mousemove', e => {
+    const rect = canvas.getBoundingClientRect();
+    const mx = e.clientX - rect.left;
+    const my = e.clientY - rect.top;
+
+    if (dragging) {
+      offsetX += mx - lastX;
+      offsetY += my - lastY;
+      lastX = mx; lastY = my;
+      tooltip.style.opacity = '0';
+      return;
+    }
+
+    hoveredNode = null;
+    skills.forEach(s => {
+      const dx = mx - s.x, dy = my - s.y;
+      if (Math.sqrt(dx*dx+dy*dy) < s.size + 8) hoveredNode = s;
+    });
+
+    if (hoveredNode) {
+      tooltip.style.opacity = '1';
+      tooltip.style.left = (e.clientX + 12) + 'px';
+      tooltip.style.top = (e.clientY - 10) + 'px';
+      tooltip.innerHTML = `<b>${hoveredNode.label}</b><br><span style="color:#64748b;font-size:0.7rem">${hoveredNode.cat}</span>`;
+    } else {
+      tooltip.style.opacity = '0';
+    }
+  });
+
+  canvas.addEventListener('mousedown', e => {
+    dragging = true;
+    const rect = canvas.getBoundingClientRect();
+    lastX = e.clientX - rect.left;
+    lastY = e.clientY - rect.top;
+    tooltip.style.opacity = '0';
+  });
+
+  window.addEventListener('mouseup', () => { dragging = false; });
+  canvas.addEventListener('mouseleave', () => { tooltip.style.opacity = '0'; hoveredNode = null; });
+
+  resize();
+  draw();
+  window.addEventListener('resize', resize);
+})();
+
+// âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// RADAR CHART
+// âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+(function initRadar() {
+  const canvas = document.getElementById('radarCanvas');
+  const ctx = canvas.getContext('2d');
+
+  const labels  = ['LLMs & GenAI','Agentic AI','MLOps','Cloud','Deep Learning','Data Eng.','Voice AI','CV & ML'];
+  const values  = [0.96, 0.94, 0.92, 0.90, 0.90, 0.87, 0.85, 0.84];
+  let animated  = false, progress = 0;
+
+  function drawRadar(prog) {
+    const W = canvas.width  = canvas.offsetWidth;
+    const H = canvas.height = canvas.offsetHeight;
+    const cx = W/2, cy = H/2;
+    const R = Math.min(W, H) / 2 - 50;
+    const N = labels.length;
+
+    ctx.clearRect(0, 0, W, H);
+
+    // Grid rings
+    for (let ring = 1; ring <= 5; ring++) {
+      const r = (ring / 5) * R;
+      ctx.strokeStyle = 'rgba(0,217,255,0.1)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      for (let i = 0; i <= N; i++) {
+        const angle = (i/N)*Math.PI*2 - Math.PI/2;
+        const x = cx + Math.cos(angle)*r;
+        const y = cy + Math.sin(angle)*r;
+        if (i === 0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+      }
+      ctx.closePath();
+      ctx.stroke();
+    }
+
+    // Spokes
+    for (let i = 0; i < N; i++) {
+      const angle = (i/N)*Math.PI*2 - Math.PI/2;
+      ctx.strokeStyle = 'rgba(0,217,255,0.15)';
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.lineTo(cx + Math.cos(angle)*R, cy + Math.sin(angle)*R);
+      ctx.stroke();
+    }
+
+    // Data polygon
+    const pts = values.map((v, i) => {
+      const angle = (i/N)*Math.PI*2 - Math.PI/2;
+      const r = v * prog * R;
+      return { x: cx + Math.cos(angle)*r, y: cy + Math.sin(angle)*r };
+    });
+
+    const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, R);
+    grad.addColorStop(0, 'rgba(0,217,255,0.3)');
+    grad.addColorStop(1, 'rgba(124,58,237,0.1)');
+
+    ctx.fillStyle = grad;
+    ctx.strokeStyle = '#00d9ff';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    pts.forEach((p, i) => i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y));
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+
+    // Data points
+    pts.forEach(p => {
+      ctx.fillStyle = '#00d9ff';
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, 4, 0, Math.PI*2);
+      ctx.fill();
+      ctx.fillStyle = '#000';
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, 2, 0, Math.PI*2);
+      ctx.fill();
+    });
+
+    // Labels
+    for (let i = 0; i < N; i++) {
+      const angle = (i/N)*Math.PI*2 - Math.PI/2;
+      const lx = cx + Math.cos(angle)*(R+22);
+      const ly = cy + Math.sin(angle)*(R+22);
+      ctx.fillStyle = '#94a3b8';
+      ctx.font = '500 10px Fira Code';
+      ctx.textAlign = Math.cos(angle) > 0.1 ? 'left' : Math.cos(angle) < -0.1 ? 'right' : 'center';
+      ctx.fillText(labels[i], lx, ly + 4);
+    }
+  }
+
+  function animateRadar() {
+    if (progress < 1) {
+      progress = Math.min(1, progress + 0.025);
+      drawRadar(progress);
+      requestAnimationFrame(animateRadar);
+    }
+  }
+
+  // Trigger on scroll into view
+  const obs = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting && !animated) {
+      animated = true;
+      animateRadar();
+    }
+  }, {threshold: 0.3});
+  obs.observe(canvas);
+  drawRadar(0);
+
+  window.addEventListener('resize', () => drawRadar(progress));
+})();
+
+// âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// SKILL BARS ANIMATION
+// âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+(function initBars() {
+  const bars = document.querySelectorAll('.skill-bar-fill');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const w = e.target.dataset.width;
+        e.target.style.width = w + '%';
+        obs.unobserve(e.target);
+      }
+    });
+  }, {threshold: 0.5});
+  bars.forEach(b => obs.observe(b));
+})();
+
+// âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// SCROLL REVEAL
+// âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+(function initReveal() {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        obs.unobserve(e.target);
+      }
+    });
+  }, {threshold: 0.1});
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+})();
+
+// âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// 3D CARD TILT
+// âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+document.querySelectorAll('.exp-card').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const cx = rect.width / 2;
+    const cy = rect.height / 2;
+    const rotX = (y - cy) / cy * -8;
+    const rotY = (x - cx) / cx * 8;
+    card.style.transform = `perspective(800px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-6px) scale(1.01)`;
+    card.style.setProperty('--mx', x + 'px');
+    card.style.setProperty('--my', y + 'px');
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = '';
+    card.style.transition = 'all 0.4s cubic-bezier(0.175,0.885,0.32,1.275)';
+  });
+});
+
+// Nav active highlight on scroll
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 200) current = s.id;
+  });
+  navLinks.forEach(a => {
+    a.style.color = a.getAttribute('href') === '#' + current ? 'var(--cyan)' : '';
+  });
+}, {passive:true});
+</script>
+</body>
+</html>
