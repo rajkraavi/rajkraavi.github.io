@@ -33,12 +33,12 @@ body {
   overflow-x: hidden;
 }
 
-/* ââ SCROLLBAR âââââââââââââââââââââââââââââââ */
+/* ── SCROLLBAR ─────────────────────────────── */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 2px; }
 
-/* ââ NAV ââââââââââââââââââââââââââââââââââââââ */
+/* ── NAV ────────────────────────────────────── */
 nav {
   position: fixed; top:0; left:0; right:0; z-index:100;
   padding: 1rem 3rem;
@@ -62,7 +62,24 @@ nav {
 }
 .nav-links a:hover { color: var(--cyan); }
 
-/* ââ HERO âââââââââââââââââââââââââââââââââââââ */
+/* ── PROFILE PHOTO ─────────────────────────── */
+.hero-avatar {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  border: 3px solid var(--cyan);
+  box-shadow: 0 0 30px rgba(0,217,255,0.45), 0 0 70px rgba(0,217,255,0.18);
+  object-fit: cover;
+  display: block;
+  margin: 0 auto 1.75rem auto;
+  animation: avatar-glow 3s ease-in-out infinite;
+}
+@keyframes avatar-glow {
+  0%,100%{ box-shadow: 0 0 30px rgba(0,217,255,0.45), 0 0 70px rgba(0,217,255,0.18); }
+  50%    { box-shadow: 0 0 45px rgba(0,217,255,0.65), 0 0 90px rgba(0,217,255,0.30); }
+}
+
+/* ── HERO ───────────────────────────────────── */
 #hero {
   position: relative; height:100vh;
   display:flex; align-items:center; justify-content:center;
@@ -168,7 +185,7 @@ nav {
 }
 @keyframes scroll-down { 0%{opacity:0;transform:scaleY(0);transform-origin:top} 50%{opacity:1;transform:scaleY(1)} 100%{opacity:0;transform:scaleY(1);transform-origin:bottom} }
 
-/* ââ SECTION COMMON âââââââââââââââââââââââââââ */
+/* ── SECTION COMMON ─────────────────────────── */
 section { padding:6rem 2rem; position:relative; }
 .section-inner { max-width:1100px; margin:0 auto; }
 .section-label {
@@ -196,12 +213,11 @@ section { padding:6rem 2rem; position:relative; }
 .reveal-delay-3 { transition-delay:0.3s }
 .reveal-delay-4 { transition-delay:0.4s }
 
-/* ââ ABOUT (SKILLS AS CODE) âââââââââââââââââââ */
+/* ── ABOUT (SKILLS AS CODE) ─────────────────── */
 #about { background:var(--bg); }
 .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:start; margin-top:3rem; }
 @media(max-width:768px){ .about-grid{ grid-template-columns:1fr; } }
-.code-block {
-  background:rgba(8,8,24,0.95);
+.code-block {background:rgba(8,8,24,0.95);
   border:1px solid var(--border);
   border-radius:12px; overflow:hidden;
   box-shadow:0 0 40px rgba(0,217,255,0.06);
@@ -255,7 +271,7 @@ section { padding:6rem 2rem; position:relative; }
 }
 .stat-label { color:var(--muted); font-size:0.8rem; letter-spacing:0.05em; margin-top:0.25rem; }
 
-/* ââ SKILLS GALAXY ââââââââââââââââââââââââââââ */
+/* ── SKILLS GALAXY ──────────────────────────── */
 #skills { background:linear-gradient(180deg,var(--bg) 0%,#08082a 50%,var(--bg) 100%); }
 #skillCanvas {
   width:100%; height:500px; cursor:grab;
@@ -277,12 +293,12 @@ section { padding:6rem 2rem; position:relative; }
   border:1px solid var(--cyan);
   border-radius:8px; padding:0.6rem 1rem;
   font-family:'Fira Code',monospace; font-size:0.78rem;
-  color:var(--cyan); pointer-events:none;
+  color:var(--cyan);pointer-events:none;
   opacity:0; transition:opacity 0.2s;
   box-shadow:0 0 20px rgba(0,217,255,0.2);
 }
 
-/* ââ EXPERTISE CARDS ââââââââââââââââââââââââââ */
+/* ── EXPERTISE CARDS ────────────────────────── */
 #expertise { background:var(--bg); }
 .expertise-grid {
   display:grid;
@@ -335,7 +351,7 @@ section { padding:6rem 2rem; position:relative; }
 .tech-chip.orange { background:rgba(255,107,53,0.08); border-color:rgba(255,107,53,0.25); color:var(--orange); }
 .tech-chip.pink { background:rgba(244,114,182,0.08); border-color:rgba(244,114,182,0.25); color:#f472b6; }
 
-/* ââ TECH STACK MARQUEE âââââââââââââââââââââââ */
+/* ── TECH STACK MARQUEE ─────────────────────── */
 #stack { background:var(--bg2); padding:5rem 0; overflow:hidden; }
 .stack-title {
   text-align:center; font-family:'Fira Code',monospace;
@@ -356,8 +372,7 @@ section { padding:6rem 2rem; position:relative; }
   border:1px solid rgba(255,255,255,0.08);
   font-family:'Fira Code',monospace; font-size:0.8rem;
   color:var(--text); white-space:nowrap;
-  transition:all 0.3s;
-  flex-shrink:0;
+  transition:all 0.3s;  flex-shrink:0;
 }
 .tech-pill:hover {
   border-color:var(--cyan);
@@ -370,7 +385,7 @@ section { padding:6rem 2rem; position:relative; }
   100%{ transform:translateX(-50%) }
 }
 
-/* ââ CERTS ââââââââââââââââââââââââââââââââââââ */
+/* ── CERTS ──────────────────────────────────── */
 #certs { background:var(--bg); }
 .certs-grid {
   display:grid;
@@ -392,12 +407,18 @@ section { padding:6rem 2rem; position:relative; }
   opacity:0; transition:opacity 0.3s;
 }
 .cert-card:hover::before{ opacity:0.15; }
-.cert-card:hover {
-  border-color:rgba(0,217,255,0.4);
+.cert-card:hover {border-color:rgba(0,217,255,0.4);
   transform:translateY(-4px);
   box-shadow:0 15px 40px rgba(0,217,255,0.1);
 }
 @keyframes spin-border{ to{transform:rotate(360deg)} }
+.cert-badge img {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  opacity: 0.9;
+}
 .cert-badge {
   width:64px; height:64px; border-radius:50%;
   margin:0 auto 1.25rem;
@@ -412,7 +433,7 @@ section { padding:6rem 2rem; position:relative; }
 }
 .cert-name { font-size:0.95rem; font-weight:700; line-height:1.3; }
 
-/* ââ RADAR SECTION ââââââââââââââââââââââââââââ */
+/* ── RADAR SECTION ──────────────────────────── */
 #radar { background:var(--bg2); }
 .radar-layout {
   display:grid; grid-template-columns:1fr 1fr;
@@ -422,7 +443,7 @@ section { padding:6rem 2rem; position:relative; }
 #radarCanvas {
   width:100%; max-width:400px; height:400px; margin:0 auto; display:block;
 }
-.skill-bars { display:flex; flex-direction:column; gap:1.25rem; }
+.skill-bars { display:flex;flex-direction:column; gap:1.25rem; }
 .skill-bar-item { }
 .skill-bar-header {
   display:flex; justify-content:space-between; align-items:center;
@@ -445,10 +466,9 @@ section { padding:6rem 2rem; position:relative; }
   background:var(--cyan); box-shadow:0 0 8px var(--cyan);
 }
 
-/* ââ CONTACT ââââââââââââââââââââââââââââââââââ */
+/* ── CONTACT ────────────────────────────────── */
 #contact { background:var(--bg); text-align:center; }
-.contact-inner { max-width:600px; margin:0 auto; }
-.contact-tagline {
+.contact-inner { max-width:600px; margin:0 auto; }.contact-tagline {
   font-family:'Fira Code',monospace;
   font-size:1.1rem; color:var(--muted); margin:1.5rem 0 2.5rem;
   line-height:1.7;
@@ -462,8 +482,7 @@ section { padding:6rem 2rem; position:relative; }
   padding:0.85rem 1.75rem;
   border-radius:8px; text-decoration:none;
   font-family:'Fira Code',monospace; font-size:0.85rem; font-weight:600;
-  transition:all 0.3s;
-  border:1px solid;
+  transition:all 0.3s; border:1px solid;
 }
 .btn-primary {
   background:linear-gradient(135deg,var(--cyan),var(--purple));
@@ -480,7 +499,7 @@ section { padding:6rem 2rem; position:relative; }
   transform:translateY(-2px);
 }
 
-/* ââ FOOTER âââââââââââââââââââââââââââââââââââ */
+/* ── FOOTER ─────────────────────────────────── */
 footer {
   padding:2rem;
   text-align:center;
@@ -489,7 +508,7 @@ footer {
 }
 footer span{ color:var(--cyan); }
 
-/* ââ DIVIDERS âââââââââââââââââââââââââââââââââ */
+/* ── DIVIDERS ───────────────────────────────── */
 .divider {
   height:1px; background:linear-gradient(90deg,transparent,var(--border),transparent);
   margin:0 auto; max-width:800px;
@@ -515,6 +534,7 @@ footer span{ color:var(--cyan); }
 <section id="hero">
   <canvas id="neuralCanvas"></canvas>
   <div class="hero-content">
+    <img src="https://github.com/rajkraavi.png" alt="Raj Raavi" class="hero-avatar">
     <div class="terminal-window">
       <div class="terminal-header">
         <div class="dot dot-r"></div>
@@ -535,12 +555,11 @@ footer span{ color:var(--cyan); }
       <span class="hero-badge badge-orange">MLOps</span>
     </div>
     <div class="hero-tagline" id="heroTagline" style="opacity:0;transition:opacity 1s 2.5s">
-      thinking in <span>embeddings</span> Â· dreaming in tokens
+      thinking in <span>embeddings</span> · dreaming in tokens
     </div>
   </div>
   <div class="scroll-hint">
-    <div class="scroll-arrow"></div>
-    scroll
+    <div class="scroll-arrow"></div> scroll
   </div>
 </section>
 
@@ -550,7 +569,7 @@ footer span{ color:var(--cyan); }
     <div class="reveal">
       <div class="section-label">about</div>
       <h2 class="section-title"><span class="glow-text">Who I Am</span></h2>
-      <p class="section-sub">Principal AI Architect with 8+ years building enterprise-scale intelligent systems â from neural networks to multi-agent platforms that actually ship to production.</p>
+      <p class="section-sub">Principal AI Architect with 8+ years building enterprise-scale intelligent systems — from neural networks to multi-agent platforms that actually ship to production.</p>
     </div>
     <div class="about-grid" style="margin-top:3rem;">
       <div class="reveal">
@@ -566,7 +585,7 @@ footer span{ color:var(--cyan); }
             <div class="code-line"><span class="t-fn">  def</span> <span class="t-cyan">__init__</span><span class="t-op">(</span><span class="t-self">self</span><span class="t-op">):</span></div>
             <div class="code-line"><span class="t-self">    self</span><span class="t-op">.</span>name       <span class="t-op">=</span> <span class="t-str">"raj.raavi()"</span></div>
             <div class="code-line"><span class="t-self">    self</span><span class="t-op">.</span>role       <span class="t-op">=</span> <span class="t-str">"Principal AI Architect"</span></div>
-            <div class="code-line"><span class="t-self">    self</span><span class="t-op">.</span>location   <span class="t-op">=</span> <span class="t-str">"Atlanta, GA ð"</span></div>
+            <div class="code-line"><span class="t-self">    self</span><span class="t-op">.</span>location   <span class="t-op">=</span> <span class="t-str">"Atlanta, GA 🌆"</span></div>
             <div class="code-line"><span class="t-self">    self</span><span class="t-op">.</span>experience <span class="t-op">=</span> <span class="t-num">8</span> <span class="t-comment"># years of production AI</span></div>
             <div class="code-line"><span class="t-self">    self</span><span class="t-op">.</span>domains    <span class="t-op">=</span> <span class="t-op">[</span></div>
             <div class="code-line"><span class="t-str">      "LLMs &amp; GenAI"</span><span class="t-op">,</span> <span class="t-str">"Agentic AI"</span><span class="t-op">,</span></div>
@@ -579,7 +598,7 @@ footer span{ color:var(--cyan); }
             <div class="code-line"><span class="t-fn">  def</span> <span class="t-cyan">fun_fact</span><span class="t-op">(</span><span class="t-self">self</span><span class="t-op">):</span></div>
             <div class="code-line"><span class="t-kw">    return</span> <span class="t-op">(</span></div>
             <div class="code-line"><span class="t-str">      "I think in embeddings"</span></div>
-            <div class="code-line"><span class="t-str">      " and dream in tokens ð§ "</span></div>
+            <div class="code-line"><span class="t-str">      " and dream in tokens 🧠"</span></div>
             <div class="code-line"><span class="t-op">    )</span></div>
           </div>
         </div>
@@ -595,8 +614,7 @@ footer span{ color:var(--cyan); }
             <div class="stat-label">TECH MASTERED</div>
           </div>
           <div class="stat-card">
-            <div class="stat-number">4</div>
-            <div class="stat-label">CLOUD PLATFORMS</div>
+            <div class="stat-number">4</div>   <div class="stat-label">CLOUD PLATFORMS</div>
           </div>
           <div class="stat-card">
             <div class="stat-number">4</div>
@@ -637,10 +655,10 @@ footer span{ color:var(--cyan); }
     <div class="reveal">
       <div class="section-label">skills galaxy</div>
       <h2 class="section-title"><span class="glow-text">Skill Constellation</span></h2>
-      <p class="section-sub">An interactive map of my technical universe â drag to explore, hover to inspect.</p>
+      <p class="section-sub">An interactive map of my technical universe — drag to explore, hover toinspect.</p>
     </div>
     <canvas id="skillCanvas" class="reveal reveal-delay-2"></canvas>
-    <p class="skill-hint reveal reveal-delay-3">// drag to pan Â· hover nodes for details Â· categories color-coded</p>
+    <p class="skill-hint reveal reveal-delay-3">// drag to pan · hover nodes for details · categories color-coded</p>
   </div>
 </section>
 <div id="skillTooltip"></div>
@@ -652,13 +670,13 @@ footer span{ color:var(--cyan); }
   <div class="section-inner">
     <div class="reveal">
       <div class="section-label">expertise</div>
-      <h2 class="section-title"><span class="glow-text">What I Build</span></h2>
+      <h2 class="section-title"><span class="glow-text">WhatI Build</span></h2>
       <p class="section-sub">Turning research into production systems that scale, perform, and stay reliable under real-world conditions.</p>
     </div>
     <div class="expertise-grid">
 
       <div class="exp-card reveal" style="--accent:#00d9ff">
-        <div class="exp-icon" style="background:rgba(0,217,255,0.1);border:1px solid rgba(0,217,255,0.2)">ð¤</div>
+        <div class="exp-icon" style="background:rgba(0,217,255,0.1);border:1px solid rgba(0,217,255,0.2)">🤖</div>
         <div class="exp-card-title">LLMs &amp; GenAI</div>
         <div class="exp-card-desc">Architecting LLM-powered platforms with prompt engineering, fine-tuning (LoRA/QLoRA, RLHF), function calling, and production-grade reasoning pipelines.</div>
         <div class="tech-chips">
@@ -672,7 +690,7 @@ footer span{ color:var(--cyan); }
       </div>
 
       <div class="exp-card reveal reveal-delay-1" style="--accent:#7c3aed">
-        <div class="exp-icon" style="background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.2)">ð</div>
+        <div class="exp-icon" style="background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.2)">🔍</div>
         <div class="exp-card-title">RAG &amp; Vector Systems</div>
         <div class="exp-card-desc">Enterprise RAG strategies using vector databases, embedding pipelines, hybrid retrieval, semantic search, and evaluation frameworks for grounded AI.</div>
         <div class="tech-chips">
@@ -686,7 +704,7 @@ footer span{ color:var(--cyan); }
       </div>
 
       <div class="exp-card reveal reveal-delay-2" style="--accent:#00ff88">
-        <div class="exp-icon" style="background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.2)">ð¸ï¸</div>
+        <div class="exp-icon" style="background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.2)">🕸️</div>
         <div class="exp-card-title">Agentic AI Systems</div>
         <div class="exp-card-desc">Multi-agent orchestration, autonomous tool use, state management, memory systems, and complex workflow automation at enterprise scale.</div>
         <div class="tech-chips">
@@ -700,9 +718,9 @@ footer span{ color:var(--cyan); }
       </div>
 
       <div class="exp-card reveal" style="--accent:#ff6b35">
-        <div class="exp-icon" style="background:rgba(255,107,53,0.1);border:1px solid rgba(255,107,53,0.2)">ð</div>
+        <div class="exp-icon" style="background:rgba(255,107,53,0.1);border:1px solid rgba(255,107,53,0.2)">🚀</div>
         <div class="exp-card-title">MLOps &amp; Deployment</div>
-        <div class="exp-card-desc">End-to-end ML lifecycle management â from CI/CD pipelines and model versioning to containerized deployment, observability, and drift detection in production.</div>
+        <div class="exp-card-desc">End-to-end ML lifecycle management — from CI/CD pipelines and model versioning to containerized deployment, observability, and drift detection in production.</div>
         <div class="tech-chips">
           <span class="tech-chip orange">MLflow</span>
           <span class="tech-chip orange">Kubeflow</span>
@@ -714,11 +732,10 @@ footer span{ color:var(--cyan); }
       </div>
 
       <div class="exp-card reveal reveal-delay-1" style="--accent:#f472b6">
-        <div class="exp-icon" style="background:rgba(244,114,182,0.1);border:1px solid rgba(244,114,182,0.2)">ðï¸</div>
+        <div class="exp-icon" style="background:rgba(244,114,182,0.1);border:1px solid rgba(244,114,182,0.2)">🎙️</div>
         <div class="exp-card-title">Voice AI &amp; Multimodal</div>
-        <div class="exp-card-desc">ASR, TTS, Voice Activity Detection, barge-in, emotion/intent detection â full-stack voice AI pipelines for hands-free conversational interaction.</div>
-        <div class="tech-chips">
-          <span class="tech-chip pink">Whisper</span>
+        <div class="exp-card-desc">ASR, TTS, Voice Activity Detection, barge-in, emotion/intent detection — full-stack voice AI pipelines for hands-free conversational interaction.</div>
+        <div class="tech-chips"> <span class="tech-chip pink">Whisper</span>
           <span class="tech-chip pink">Azure Speech</span>
           <span class="tech-chip pink">ElevenLabs</span>
           <span class="tech-chip pink">WebRTC</span>
@@ -728,7 +745,7 @@ footer span{ color:var(--cyan); }
       </div>
 
       <div class="exp-card reveal reveal-delay-2" style="--accent:#e5c07b">
-        <div class="exp-icon" style="background:rgba(229,192,123,0.1);border:1px solid rgba(229,192,123,0.2)">ðï¸</div>
+        <div class="exp-icon" style="background:rgba(229,192,123,0.1);border:1px solid rgba(229,192,123,0.2)">👁️</div>
         <div class="exp-card-title">Computer Vision &amp; ML</div>
         <div class="exp-card-desc">CNN architectures, image segmentation, anatomical mapping, feature engineering, classical ML, and deep learning pipelines from research to clinical production.</div>
         <div class="tech-chips">
@@ -786,9 +803,7 @@ footer span{ color:var(--cyan); }
       <div class="tech-pill">Prometheus</div><div class="tech-pill">Grafana</div><div class="tech-pill">OpenTelemetry</div>
     </div>
   </div>
-</section>
-
-<!-- SKILL RADAR -->
+</section><!-- SKILL RADAR -->
 <section id="radar">
   <div class="section-inner">
     <div class="reveal">
@@ -806,8 +821,7 @@ footer span{ color:var(--cyan); }
           <div class="skill-bar-header"><span class="skill-bar-name">Agentic AI &amp; RAG</span><span class="skill-bar-pct">94%</span></div>
           <div class="skill-bar-track"><div class="skill-bar-fill" data-width="94"></div></div>
         </div>
-        <div class="skill-bar-item">
-          <div class="skill-bar-header"><span class="skill-bar-name">MLOps &amp; DevOps</span><span class="skill-bar-pct">92%</span></div>
+        <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-bar-name">MLOps &amp; DevOps</span><span class="skill-bar-pct">92%</span></div>
           <div class="skill-bar-track"><div class="skill-bar-fill" data-width="92"></div></div>
         </div>
         <div class="skill-bar-item">
@@ -845,24 +859,32 @@ footer span{ color:var(--cyan); }
     </div>
     <div class="certs-grid">
       <div class="cert-card reveal">
-        <div class="cert-badge" style="background:rgba(0,120,212,0.1);border-color:rgba(0,120,212,0.3)">âï¸</div>
+        <div class="cert-badge" style="background:rgba(0,120,212,0.1);border-color:rgba(0,120,212,0.3)">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azure/azure-original.svg" alt="Microsoft Azure" style="filter:none;opacity:1;">
+        </div>
         <div class="cert-provider">Microsoft Azure</div>
         <div class="cert-name" style="color:#60a5fa">Azure AI Engineer Associate</div>
       </div>
       <div class="cert-card reveal reveal-delay-1">
-        <div class="cert-badge" style="background:rgba(0,120,212,0.1);border-color:rgba(0,120,212,0.3)">ð</div>
+        <div class="cert-badge" style="background:rgba(0,120,212,0.1);border-color:rgba(0,120,212,0.3)">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azure/azure-original.svg" alt="Microsoft Azure" style="filter:none;opacity:1;">
+        </div>
         <div class="cert-provider">Microsoft Azure</div>
         <div class="cert-name" style="color:#60a5fa">Azure Data Scientist Associate</div>
       </div>
       <div class="cert-card reveal reveal-delay-2">
-        <div class="cert-badge" style="background:rgba(118,185,0,0.1);border-color:rgba(118,185,0,0.3)">â¡</div>
+        <div class="cert-badge" style="background:rgba(118,185,0,0.1);border-color:rgba(118,185,0,0.3)">
+          <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/nvidia.svg" alt="NVIDIA" style="filter:invert(1) sepia(1) saturate(5) hue-rotate(60deg);opacity:0.9;">
+        </div>
         <div class="cert-provider">NVIDIA DLI</div>
         <div class="cert-name" style="color:#86efac">Deep Learning Institute</div>
       </div>
       <div class="cert-card reveal reveal-delay-3">
-        <div class="cert-badge" style="background:rgba(255,153,0,0.1);border-color:rgba(255,153,0,0.3)">ð¤</div>
+        <div class="cert-badge" style="background:rgba(255,153,0,0.1);border-color:rgba(255,153,0,0.3)">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" alt="AWS" style="filter:invert(1) sepia(1) saturate(3) hue-rotate(10deg) brightness(1.2);opacity:0.95;">
+        </div>
         <div class="cert-provider">Amazon Web Services</div>
-        <div class="cert-name" style="color:#fbbf24">AWS ML â Specialty</div>
+        <div class="cert-name" style="color:#fbbf24">AWS ML — Specialty</div>
       </div>
     </div>
   </div>
@@ -880,13 +902,13 @@ footer span{ color:var(--cyan); }
       </p>
       <div class="contact-links">
         <a href="mailto:raavi.rajkishore@gmail.com" class="contact-btn btn-primary">
-          <span>ð¬</span> raavi.rajkishore@gmail.com
+          <span>📬</span> raavi.rajkishore@gmail.com
         </a>
         <a href="https://github.com/rajkraavi" target="_blank" class="contact-btn btn-outline">
-          <span>â¨ï¸</span> github/rajkraavi
+          <span>⌨️</span> github/rajkraavi
         </a>
         <a href="https://linkedin.com" target="_blank" class="contact-btn btn-outline">
-          <span>ð</span> LinkedIn
+          <span>🔗</span> LinkedIn
         </a>
       </div>
     </div>
@@ -894,13 +916,13 @@ footer span{ color:var(--cyan); }
 </section>
 
 <footer>
-  <p>built with <span>embeddings &amp; caffeine</span> Â· raj.raavi() Â© 2025 Â· Atlanta, GA</p>
+  <p>built with <span>embeddings &amp; caffeine</span> · raj.raavi() © 2025 · Atlanta, GA</p>
 </footer>
 
 <script>
-// âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ═══════════════════════════════════════════════════════
 // NEURAL NETWORK BACKGROUND
-// âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ═══════════════════════════════════════════════════════
 (function initNeuralNetwork() {
   const canvas = document.getElementById('neuralCanvas');
   const ctx = canvas.getContext('2d');
@@ -923,8 +945,7 @@ footer span{ color:var(--cyan); }
     this.color = colors[Math.floor(Math.random() * colors.length)];
   }
 
-  Node.prototype.update = function() {
-    this.x += this.vx;
+  Node.prototype.update = function() {    this.x += this.vx;
     this.y += this.vy;
     this.pulse += this.pulseSpeed;
     if (this.x < 0 || this.x > W) this.vx *= -1;
@@ -1006,9 +1027,9 @@ footer span{ color:var(--cyan); }
   window.addEventListener('resize', () => { resize(); initNodes(); });
 })();
 
-// âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ═══════════════════════════════════════════════════════
 // TYPEWRITER EFFECT
-// âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ═══════════════════════════════════════════════════════
 (function initTypewriter() {
   const lines = [
     { text: '# Principal AI Architect', cls: 't-comment' },
@@ -1027,7 +1048,7 @@ footer span{ color:var(--cyan); }
     'mixed1': s => `<span class="t-self">  self</span><span class="t-op">.</span>role     <span class="t-op">=</span> <span class="t-str">"Principal AI Architect"</span>`,
     'mixed2': s => `<span class="t-self">  self</span><span class="t-op">.</span>yoe      <span class="t-op">=</span> <span class="t-num">8</span>  <span class="t-comment"># years</span>`,
     'mixed3': s => `<span class="t-self">  self</span><span class="t-op">.</span>thinking <span class="t-op">=</span> <span class="t-str">"in embeddings"</span>`,
-    'mixed4': s => `<span class="t-self">  self</span><span class="t-op">.</span>building <span class="t-op">=</span> <span class="t-str">"the future ð"</span>`,
+    'mixed4': s => `<span class="t-self">  self</span><span class="t-op">.</span>building <span class="t-op">=</span> <span class="t-str">"the future 🚀"</span>`,
   };
 
   const output = document.getElementById('typewriterOutput');
@@ -1068,9 +1089,9 @@ footer span{ color:var(--cyan); }
   setTimeout(type, 600);
 })();
 
-// âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ═══════════════════════════════════════════════════════
 // SKILL GALAXY (CANVAS FORCE-DIRECTED GRAPH)
-// âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ═══════════════════════════════════════════════════════
 (function initSkillGalaxy() {
   const canvas = document.getElementById('skillCanvas');
   const ctx = canvas.getContext('2d');
@@ -1079,7 +1100,7 @@ footer span{ color:var(--cyan); }
   const categories = {
     'LLMs & GenAI':    { color: '#00d9ff', desc: 'Large Language Models & Generative AI' },
     'RAG & Vector':    { color: '#7c3aed', desc: 'Retrieval-Augmented Generation & Vector Databases' },
-    'Agentic AI':      { color: '#00ff88', desc: 'Multi-Agent Orchestration & Autonomous Systems' },
+    'Agentic AI':      {color: '#00ff88', desc: 'Multi-Agent Orchestration & Autonomous Systems' },
     'MLOps':           { color: '#ff6b35', desc: 'ML Operations, Deployment & Monitoring' },
     'Cloud':           { color: '#f59e0b', desc: 'Multi-Cloud AI Infrastructure' },
     'Voice & Vision':  { color: '#f472b6', desc: 'Voice AI, ASR/TTS & Computer Vision' },
@@ -1119,8 +1140,7 @@ footer span{ color:var(--cyan); }
     {label:'AWS SageMaker', cat:'Cloud', size:20, x:0, y:0, vx:0, vy:0},
     {label:'GCP Vertex AI', cat:'Cloud', size:19, x:0, y:0, vx:0, vy:0},
     {label:'Databricks', cat:'Cloud', size:18, x:0, y:0, vx:0, vy:0},
-    // Voice & Vision
-    {label:'Whisper', cat:'Voice & Vision', size:18, x:0, y:0, vx:0, vy:0},
+    // Voice & Vision   {label:'Whisper', cat:'Voice & Vision', size:18, x:0, y:0, vx:0, vy:0},
     {label:'Azure Speech', cat:'Voice & Vision', size:17, x:0, y:0, vx:0, vy:0},
     {label:'OpenCV', cat:'Voice & Vision', size:18, x:0, y:0, vx:0, vy:0},
     {label:'PyTorch', cat:'Voice & Vision', size:21, x:0, y:0, vx:0, vy:0},
@@ -1213,8 +1233,7 @@ footer span{ color:var(--cyan); }
         const dist = Math.sqrt(dx*dx + dy*dy);
         if (dist < 120) {
           ctx.strokeStyle = categories[a.cat].color + Math.floor((1-dist/120)*40).toString(16).padStart(2,'0');
-          ctx.lineWidth = 0.8;
-          ctx.beginPath();
+          ctx.lineWidth = 0.8;         ctx.beginPath();
           ctx.moveTo(a.x, a.y);
           ctx.lineTo(b.x, b.y);
           ctx.stroke();
@@ -1300,9 +1319,9 @@ footer span{ color:var(--cyan); }
   window.addEventListener('resize', resize);
 })();
 
-// âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ═══════════════════════════════════════════════════════
 // RADAR CHART
-// âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ═══════════════════════════════════════════════════════
 (function initRadar() {
   const canvas = document.getElementById('radarCanvas');
   const ctx = canvas.getContext('2d');
@@ -1361,8 +1380,7 @@ footer span{ color:var(--cyan); }
     ctx.strokeStyle = '#00d9ff';
     ctx.lineWidth = 2;
     ctx.beginPath();
-    pts.forEach((p, i) => i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y));
-    ctx.closePath();
+    pts.forEach((p, i) => i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y));ctx.closePath();
     ctx.fill();
     ctx.stroke();
 
@@ -1411,9 +1429,9 @@ footer span{ color:var(--cyan); }
   window.addEventListener('resize', () => drawRadar(progress));
 })();
 
-// âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ═══════════════════════════════════════════════════════
 // SKILL BARS ANIMATION
-// âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ═══════════════════════════════════════════════════════
 (function initBars() {
   const bars = document.querySelectorAll('.skill-bar-fill');
   const obs = new IntersectionObserver(entries => {
@@ -1428,9 +1446,9 @@ footer span{ color:var(--cyan); }
   bars.forEach(b => obs.observe(b));
 })();
 
-// âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ═══════════════════════════════════════════════════════
 // SCROLL REVEAL
-// âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ═══════════════════════════════════════════════════════
 (function initReveal() {
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => {
@@ -1443,9 +1461,9 @@ footer span{ color:var(--cyan); }
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 })();
 
-// âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ═══════════════════════════════════════════════════════
 // 3D CARD TILT
-// âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ═══════════════════════════════════════════════════════
 document.querySelectorAll('.exp-card').forEach(card => {
   card.addEventListener('mousemove', e => {
     const rect = card.getBoundingClientRect();
@@ -1459,8 +1477,7 @@ document.querySelectorAll('.exp-card').forEach(card => {
     card.style.setProperty('--mx', x + 'px');
     card.style.setProperty('--my', y + 'px');
   });
-  card.addEventListener('mouseleave', () => {
-    card.style.transform = '';
+  card.addEventListener('mouseleave', () => {   card.style.transform = '';
     card.style.transition = 'all 0.4s cubic-bezier(0.175,0.885,0.32,1.275)';
   });
 });
@@ -1480,3 +1497,10 @@ window.addEventListener('scroll', () => {
 </script>
 </body>
 </html>
+
+
+
+Tab Context:
+- Executed on tabId: 1900216292
+- Available tabs:
+  • tabId 1900216292: "api.github.com/repos/rajkraavi/rajkraavi.github.io/contents/index.html" (https://api.github.com/repos/rajkraavi/rajkraavi.github.io/contents/index.html)
